@@ -10,14 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-
-import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -47,9 +42,6 @@ public class ExpenseSheetActivity extends AppCompatActivity implements AddExpens
 
         ButterKnife.bind(this);
 
-
-
-
         thisAdventure = new Adventure();
 
         adapter = new ExpenseSheetRecyclerAdapter(this);
@@ -61,30 +53,28 @@ public class ExpenseSheetActivity extends AppCompatActivity implements AddExpens
     }
 
     @OnClick(R.id.addExpense)
-    public void addNewExpense() {
+    public void startAddExpenseFragment() {
         new AddExpenseFragment().show(getSupportFragmentManager(), AddExpenseFragment.TAG);
     }
 
-
-    //gets called once you've clicked "OK" on the AddExpenseFragment
     @Override
     public void onAddExpenseFragmentResult(final Expense expense) {
-
-        Log.d("add new users!", "was expense null "  + String.valueOf(expense == null));
-        Log.d("add new users!", "expense size: "  + String.valueOf(expense.getPayerNames().size())); // == null));
 
         expense.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-                    //(1) get the payer names from the expense
-                    thisAdventure.addAnyNewUsersFromStringUsernameList(expense.getPayerNames());
 
-                    //(2) add the expense to adapter to be viewed
+                    //update everyone based on how much they paid
+                    thisAdventure.updatePayersFromStringUsernameList(expense.getPayerNames());
+
+                    //update everyone based on how much they owe
+                    thisAdventure.updateConsumersFromStringUsernameList(expense.getConsumerNames(), expense.getCostPerConsumer());
+
+                    //add the expense to adapter to be viewed
                     adapter.addExpense(expense);
-                } else {
 
-                    Log.d("add new users!", "oh merp lol");
+                } else {
                     e.printStackTrace();
                 }
             }
@@ -94,17 +84,10 @@ public class ExpenseSheetActivity extends AppCompatActivity implements AddExpens
     @Override
     public Adventure getAdventure() {
         return thisAdventure;
-
     }
 
     @OnClick(R.id.btnSeeCurrentUsers)
-    public void calculateSplit() {
-
-
-        for (String string : thisAdventure.getUserStrings()) {
-            Toast.makeText(this, "errybody owes " + string + "a hunnid dollars", Toast.LENGTH_SHORT).show();
-        }
-
-        //pseudocode here
+    public void startShowSplitFragment() {
+        new ShowSplitFragment().show(getSupportFragmentManager(), ShowSplitFragment.TAG);
     }
 }

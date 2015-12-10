@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -39,7 +40,9 @@ import hu.ait.android.bananasplit.data.Expense;
 public class AddExpenseFragment extends DialogFragment {
 
     public static final String TAG = "ADD_EXPENSE_FRAGMENT";
+
     HashMap<AutoCompleteTextView, EditText> allPayers;
+    HashMap<AutoCompleteTextView, CheckBox> allBuyers;
 
     public interface AddExpenseInterface {
         void onAddExpenseFragmentResult(Expense expense);
@@ -54,6 +57,7 @@ public class AddExpenseFragment extends DialogFragment {
     private LinearLayout addPayerRows;
     private AutoCompleteTextView expensePayer;
     private EditText payerAmount;
+    private CheckBox userUsedThing;
     private Button addPayer;
 
     ArrayAdapter<String> userListAdapter;
@@ -82,17 +86,20 @@ public class AddExpenseFragment extends DialogFragment {
 
         expenseName = (EditText) dialogView.findViewById(R.id.newExpenseName);
         expenseCost = (EditText) dialogView.findViewById(R.id.newExpenseCost);
+        userUsedThing = (CheckBox) dialogView.findViewById(R.id.cbUserUsed);
+
 
         allPayers = new HashMap<AutoCompleteTextView, EditText>();
+        allBuyers = new HashMap<AutoCompleteTextView, CheckBox>();
         expensePayer = (AutoCompleteTextView) dialogView.findViewById(R.id.etExpensePayer);
         payerAmount = (EditText) dialogView.findViewById(R.id.etUserAmount);
         allPayers.put(expensePayer, payerAmount);
+        allBuyers.put(expensePayer, userUsedThing);
 
         //this might need to be elsewhere
         setUpAutoComplete(allPayers);
 
         addPayerRows = (LinearLayout) dialogView.findViewById(R.id.addPayerRows);
-
 
         addPayer = (Button) dialogView.findViewById(R.id.addPayer);
         addPayer.setOnClickListener(new View.OnClickListener() {
@@ -119,24 +126,27 @@ public class AddExpenseFragment extends DialogFragment {
 
 
                         if (!anyFieldsBlank()) {
-                            Toast.makeText(getActivity(), "no fields were blank! made " + allPayers.size() + " new payers", Toast.LENGTH_SHORT).show();
 
-                            //create an expense
+                            //create a new expense
                             Expense expense = new Expense();
                             expense.setExpenseName(expenseName.getText().toString());
                             expense.setCostFromString(expenseCost.getText().toString());
 
-
+                            //update map of payers
                             for (Map.Entry<AutoCompleteTextView, EditText> name : allPayers.entrySet()) {
-                                expense.addPayerFromView(name.getKey().getText().toString(), name.getValue().getText().toString());
+                                expense.addPayerFromView(name.getKey().getText().toString(),
+                                        name.getValue().getText().toString());
                             }
 
-                            //might not be necessary
-                            expense.setUser(ParseUser.getCurrentUser());
+                            //update set of consumers from the buyers that were added
+                            for (Map.Entry<AutoCompleteTextView, CheckBox> name : allBuyers.entrySet()) {
+                                if (name.getValue().isChecked()) {
+                                    expense.addConsumerFromView(name.getKey().getText().toString());
+                                }
+                            }
 
-                            //add the expense to the textview
+                            //go to ExpenseSheetActivity to see how the activity's adventure (one per activity) gets updated
                             addExpenseInterface.onAddExpenseFragmentResult(expense);
-
 
                             dialog.dismiss();
                         }
@@ -158,14 +168,7 @@ public class AddExpenseFragment extends DialogFragment {
 
     public void setUpAutoComplete(HashMap<AutoCompleteTextView, EditText> allPayers) {
         //set up autocomplete to include users that have already been entered before
-        ArrayList<String> adventurerList = addExpenseInterface.getAdventure().getUserStrings();
-
-        Log.d("adventurerlist size", "" + adventurerList.size());
-
-        //hmmmm
-        for (String adventurer : adventurerList) {
-            Log.d("adventurerlist", adventurer);
-        }
+        ArrayList<String> adventurerList = addExpenseInterface.getAdventure().getListOfAllAdventurers();
 
         userListAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line, adventurerList);
 
@@ -176,13 +179,14 @@ public class AddExpenseFragment extends DialogFragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        View newPayerRow = inflater.inflate(R.layout.payer_row, null);
+        View newPayerRow = inflater.inflate(R.layout.person_expense_row, null);
 
         AutoCompleteTextView payerName = (AutoCompleteTextView) newPayerRow.findViewById(R.id.etExpensePayer);
         EditText payerAmount = (EditText) newPayerRow.findViewById(R.id.etUserAmount);
-        Log.d("adslkfj", "add a new payer");
-        allPayers.put(payerName, payerAmount);
+        CheckBox usedThing = (CheckBox) newPayerRow.findViewById(R.id.cbUserUsed);
 
+        allPayers.put(payerName, payerAmount);
+        allBuyers.put(payerName, usedThing);
 
         addPayerRows.addView(newPayerRow);
     }

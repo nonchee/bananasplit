@@ -25,6 +25,13 @@
             android:numeric="decimal"
             android:layout_weight="40"
             />
+        <CheckBox
+            android:id="@+id/cbUserUsed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:checked="true"/>
+
 
     </LinearLayout>
 

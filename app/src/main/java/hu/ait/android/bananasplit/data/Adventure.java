@@ -6,6 +6,8 @@ import com.parse.ParseClassName;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -16,51 +18,53 @@ import java.util.List;
 public class Adventure {
 
     //names of all the users
-    ArrayList<ParseUser> coAdventurers;
-    ArrayList<String> adventurerNames;
+    HashMap<String, Float> adventurerNames;
+
 
     //required blank constructor
     public Adventure() {
-        coAdventurers = new ArrayList<ParseUser>();
-        adventurerNames = new ArrayList<String>();
+        adventurerNames = new HashMap<String, Float>();
     }
 
-    public void addUser(ParseUser adventurer) {
-        coAdventurers.add(adventurer);
-    }
 
-    public ArrayList<ParseUser> getUsers() {
-        return coAdventurers;
-    }
 
-    public int getNumAdventurers() {
-        return coAdventurers.size();
-    }
+    public void updatePayersFromStringUsernameList(HashMap<String, Float> payernames) {
 
-    public void addAnyNewUsersFromParseUserList(List<ParseUser> parseUsers) {
-
-        for (ParseUser user : parseUsers) {
-            if (!coAdventurers.contains(user)) {
-                coAdventurers.add(user);
+        for (String payerName : payernames.keySet()) {
+            if (!adventurerNames.keySet().contains(payerName)) {
+                adventurerNames.put(payerName, 0.0f);
             }
+
+            adventurerNames.put(payerName, adventurerNames.get(payerName) + payernames.get(payerName));
+            //Log.d("updateadventure!", payerName + " " + adventurerNames.get(payerName));
         }
     }
 
+    public void updateConsumersFromStringUsernameList(HashSet<String> consumerNames, float oweAmount) {
 
-    public void addAnyNewUsersFromStringUsernameList(List<String> usernames) {
-        Log.d("add new users!", "adding " + usernames.size() + "new users");
-        for (String username : usernames) {
-            Log.d("add new users!", username);
-            if (!adventurerNames.contains(username)) {
-                Log.d("add new users!", "affirmative! added " + username);
-                adventurerNames.add(username);
+        for (String consumerName : consumerNames) {
+            if (!adventurerNames.keySet().contains(consumerName)) {
+                adventurerNames.put(consumerName, 0.0f);
             }
+
+            adventurerNames.put(consumerName, adventurerNames.get(consumerName) - oweAmount);
+            //Log.d("updateadventure with " + oweAmount, consumerName + " " + adventurerNames.get(consumerName));
         }
     }
 
+    public ArrayList<String> getListOfAllAdventurers() {
+        ArrayList<String> adventurerList = new ArrayList<String>();
 
-    public ArrayList<String> getUserStrings() {
+        for (String personName : adventurerNames.keySet()) {
+            adventurerList.add(personName);
+        }
 
+        return adventurerList;
+    }
+
+    public HashMap<String, Float> getMapOfAllAdventurers() {
         return adventurerNames;
     }
+
+
 }

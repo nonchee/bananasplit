@@ -42,12 +42,7 @@ public class ExpenseSheetRecyclerAdapter extends RecyclerView.Adapter<ExpenseShe
         holder.expenseName.setText(expense.getExpenseName());
         holder.itemCost.setText("$" + expense.getCost());
 
-        StringBuilder sb = new StringBuilder();
-        List<String> payerNameStrings = expense.getPayerNames();
-        for (String payerNameString : payerNameStrings) {
-            sb.append(" " + payerNameString);
-        }
-        holder.payerNames.setText(sb.toString());
+        holder.payerNames.setText(expense.getPayersAsString());
     }
 
     @Override

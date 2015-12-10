@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Nancy on 12/6/15.
@@ -23,14 +24,15 @@ public class Expense extends ParseObject {
     public String expenseName;
     private float itemCost;
 
-    private HashSet<String> buyerNames;
+    private HashSet<String> consumerNames;
     private HashMap<String, Float> payerNames;
     private ParseUser payer;
 
 
+
     //required blank constructor
     public Expense() {
-        buyerNames = new HashSet<String>();
+        consumerNames = new HashSet<String>();
         payerNames = new HashMap<String, Float>();
 
     }
@@ -61,13 +63,8 @@ public class Expense extends ParseObject {
 
 
 
-    public List<String> getPayerNames() {
-        List<String> payerNamesList = new ArrayList<String>();
-        for (String name : payerNames.keySet()) {
-            Log.d("payers from expense", name);
-            payerNamesList.add(name);
-        }
-        return payerNamesList;
+    public HashMap<String, Float> getPayerNames() {
+        return payerNames;
     }
 
     public String getExpenseName() {
@@ -89,7 +86,6 @@ public class Expense extends ParseObject {
     }
 
     public void addPayerString(String payerNameString, String payerAmount) {
-
         payerNames.put(payerNameString, Float.parseFloat(payerAmount));
         put("payers", payerNames);
 
@@ -101,8 +97,34 @@ public class Expense extends ParseObject {
 
     }
 
-    public void addPayers(HashMap<String, Float> payers) {
-        payerNames.putAll(payers);
+    public void addConsumerFromView(String consumerName) {
+        consumerNames.add(consumerName);
+    }
 
+    public HashSet<String> getConsumerNames() {
+        return consumerNames;
+    }
+
+    public float getCostPerConsumer() {
+
+        float numConsumers = consumerNames.size();
+        return getTotalCost()/numConsumers;
+    }
+
+    //adds up all the people who paid
+    public float getTotalCost() {
+        float totalCost = 0;
+        for (Map.Entry<String, Float> payerEntry : payerNames.entrySet()) {
+            totalCost += payerEntry.getValue();
+        }
+        return totalCost;
+    }
+    public String getPayersAsString() {
+
+        StringBuilder sb = new StringBuilder();
+        for (String payerName : payerNames.keySet()) {
+            sb.append(payerName  + " ");
+        }
+        return sb.toString();
     }
 }
