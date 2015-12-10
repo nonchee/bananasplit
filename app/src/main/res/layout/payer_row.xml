@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/addPayerRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+
+        <AutoCompleteTextView
+            android:id="@+id/etExpensePayer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="who dropped dat"
+            android:layout_weight="60"
+            android:completionThreshold="1"
+            />
+
+
+        <EditText
+            android:id="@+id/etUserAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="$$$"
+            android:numeric="decimal"
+            android:layout_weight="40"
+            />
+
+    </LinearLayout>
+
+

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/newExpenseName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="expense name" />
+
+    <EditText
+        android:id="@+id/newExpenseCost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numeric="decimal"
+        android:hint="how much monay did you drop"/>
+
+    <ScrollView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:id="@+id/addPayerRows"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+      <LinearLayout
+                android:id="@+id/addPayerRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+
+                <AutoCompleteTextView
+                    android:id="@+id/etExpensePayer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="who dropped dat"
+                    android:inputType="text|textNoSuggestions"
+                    android:layout_weight="60"
+                    />
+
+
+                <EditText
+                    android:id="@+id/etUserAmount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="$$$"
+                    android:numeric="decimal"
+                    android:layout_weight="40"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/addBuyer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add another buyer"/>
+    <Button
+        android:id="@+id/addPayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add another payer"/>
+
+</LinearLayout>
