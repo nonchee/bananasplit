@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
     }
-
+    public final String user_name = "USER_NAME";
     //use butterknife library to get references to user components
     @Bind(R.id.login_progress)
     ProgressBar login_progress;
@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                 login_progress.setVisibility(View.GONE);
                 //successful registration
                 if (e == null) {
-                    Toast.makeText(LoginActivity.this, "registered a-okayly", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "registered a-okay", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(LoginActivity.this, "registration failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -84,7 +84,8 @@ public class LoginActivity extends AppCompatActivity {
                         if (e == null) {
                             login_progress.setVisibility(View.GONE);
                             Intent startMain = new Intent();
-                            startMain.setClass(LoginActivity.this, ExpenseSheetActivity.class);
+                            startMain.setClass(LoginActivity.this, MainActivity.class);
+                            startMain.putExtra(user_name, etUserName.getText().toString());
                             startActivity(startMain);
 
                         } else {

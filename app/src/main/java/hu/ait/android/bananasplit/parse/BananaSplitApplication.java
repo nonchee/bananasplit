@@ -7,6 +7,7 @@ import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
 
+import hu.ait.android.bananasplit.data.Adventure;
 import hu.ait.android.bananasplit.data.Expense;
 
 
@@ -23,7 +24,7 @@ public class BananaSplitApplication extends Application {
         super.onCreate();
 
         ParseObject.registerSubclass(Expense.class);
-        //ParseObject.registerSubclass(Adventure.class);
+        ParseObject.registerSubclass(Adventure.class);
 
         Parse.initialize(this, APPLICATION_ID, CLIENT_KEY);
 

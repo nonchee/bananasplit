@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -32,6 +34,9 @@ public class ExpenseSheetActivity extends AppCompatActivity implements AddExpens
     @Bind(R.id.addExpense)
     FloatingActionButton addExpense;
 
+    @Bind(R.id.adventureName)
+    TextView adventureName;
+
     @Bind(R.id.btnSeeCurrentUsers)
     Button seeUsers;
 
@@ -39,16 +44,21 @@ public class ExpenseSheetActivity extends AppCompatActivity implements AddExpens
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense_sheet);
+        Intent intent = getIntent();
+        Adventure adventurePassed = (Adventure) getIntent().getSerializableExtra("ADVENTURE");
+
 
         ButterKnife.bind(this);
 
-        thisAdventure = new Adventure();
-
+        thisAdventure = adventurePassed;
+        adventureName.setText(thisAdventure.getAdventureName());
         adapter = new ExpenseSheetRecyclerAdapter(this);
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rv.setLayoutManager(linearLayoutManager);
         rv.setAdapter(adapter);
+
+
 
     }
 

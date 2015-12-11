@@ -97,7 +97,8 @@ public class AddExpenseFragment extends DialogFragment {
         allBuyers.put(expensePayer, userUsedThing);
 
         //this might need to be elsewhere
-        setUpAutoComplete(allPayers);
+        //taking this out temporarily because it was crashing the app
+     //   setUpAutoComplete(allPayers);
 
         addPayerRows = (LinearLayout) dialogView.findViewById(R.id.addPayerRows);
 

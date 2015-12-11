@@ -3,8 +3,11 @@ package hu.ait.android.bananasplit.data;
 import android.util.Log;
 
 import com.parse.ParseClassName;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -15,19 +18,28 @@ import java.util.List;
  */
 
 @ParseClassName("Adventure")
-public class Adventure {
+public class Adventure extends ParseObject implements Serializable {
 
+    String adventureName;
     //names of all the users
     HashMap<String, Float> adventurerNames;
 
-
     //required blank constructor
     public Adventure() {
-        adventurerNames = new HashMap<String, Float>();
+
     }
 
+    public String getAdventureName() {
+        return adventureName;
+    }
 
+    public void setAdventureName(String adventureName) {
+        this.adventureName = adventureName;
+    }
 
+    public static ParseQuery<Adventure> getQuery() {
+        return ParseQuery.getQuery(Adventure.class);
+    }
     public void updatePayersFromStringUsernameList(HashMap<String, Float> payernames) {
 
         for (String payerName : payernames.keySet()) {
