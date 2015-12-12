@@ -40,6 +40,7 @@ public class Adventure extends ParseObject implements Serializable {
     public static ParseQuery<Adventure> getQuery() {
         return ParseQuery.getQuery(Adventure.class);
     }
+
     public void updatePayersFromStringUsernameList(HashMap<String, Float> payernames) {
 
         for (String payerName : payernames.keySet()) {

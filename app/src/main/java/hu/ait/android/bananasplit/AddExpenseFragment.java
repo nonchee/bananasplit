@@ -31,13 +31,14 @@ import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fr.tvbarthel.lib.blurdialogfragment.SupportBlurDialogFragment;
 import hu.ait.android.bananasplit.data.Adventure;
 import hu.ait.android.bananasplit.data.Expense;
 
 /**
  * Created by Nancy on 12/6/15.
  */
-public class AddExpenseFragment extends DialogFragment {
+public class AddExpenseFragment extends SupportBlurDialogFragment {
 
     public static final String TAG = "ADD_EXPENSE_FRAGMENT";
 
