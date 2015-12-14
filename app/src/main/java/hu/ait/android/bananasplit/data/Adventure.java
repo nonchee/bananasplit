@@ -26,7 +26,7 @@ public class Adventure extends ParseObject implements Serializable {
 
     //required blank constructor
     public Adventure() {
-
+        adventurerNames = new HashMap<String, Float>();
     }
 
     public String getAdventureName() {

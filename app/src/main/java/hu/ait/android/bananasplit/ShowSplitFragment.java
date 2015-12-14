@@ -108,9 +108,6 @@ public class ShowSplitFragment extends DialogFragment {
                 owedOrIsOwed.setText("DOES NOT HAVE TO DO ANYTHING WOOO DEBT FREE.");
             }
 
-            //thought it'd be nice to opt out of texts if we wanted to implement that
-            CheckBox wantsText = (CheckBox) newPayerRow.findViewById(R.id.cbWantsText);
-            wantsText.setChecked(true);
 
             allUsersLinearLayout.addView(newPayerRow);
 

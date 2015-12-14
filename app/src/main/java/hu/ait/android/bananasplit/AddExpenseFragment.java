@@ -2,6 +2,7 @@ package hu.ait.android.bananasplit;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -9,7 +10,10 @@ import android.support.v7.app.AlertDialog;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -49,7 +53,6 @@ public class AddExpenseFragment extends SupportBlurDialogFragment {
         void onAddExpenseFragmentResult(Expense expense);
         Adventure getAdventure();
     }
-
 
     private AddExpenseInterface addExpenseInterface;
     private EditText expenseName;

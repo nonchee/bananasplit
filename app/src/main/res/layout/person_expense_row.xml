@@ -1,38 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/addPayerRow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
+    android:id="@+id/addPayerRow"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
         <AutoCompleteTextView
             android:id="@+id/etExpensePayer"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="who dropped dat"
-            android:layout_weight="60"
             android:completionThreshold="1"
-            />
+            android:hint="person" />
 
 
         <EditText
             android:id="@+id/etUserAmount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="$$$"
-            android:numeric="decimal"
-            android:layout_weight="40"
-            />
-        <CheckBox
-            android:id="@+id/cbUserUsed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:checked="true"/>
+            android:layout_marginLeft="50dp"
+            android:hint="$"
+            android:numeric="decimal" />
 
 
-    </LinearLayout>
+    <CheckBox
+        android:id="@+id/cbUserUsed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:layout_marginLeft="65dp"
+        android:checked="true"
+        android:gravity="center_vertical" />
+</LinearLayout>
 
 

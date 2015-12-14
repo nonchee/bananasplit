@@ -2,25 +2,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    android:weightSum="1">
 
-    <EditText
-        android:id="@+id/newExpenseName"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="expense name" />
+        android:gravity="center">
 
-    <EditText
-        android:id="@+id/newExpenseCost"
+        <EditText
+            android:id="@+id/newExpenseName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name of expense" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:numeric="decimal"
-        android:hint="how much monay did you drop"/>
+        android:gravity="center">
 
+        <EditText
+            android:id="@+id/newExpenseCost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="How much did you pay?"
+            android:numeric="decimal" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name           Contribution?         User?"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp" />
     <ScrollView
 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fillViewport="false">
 
         <LinearLayout
             android:id="@+id/addPayerRows"
@@ -28,40 +51,37 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-      <LinearLayout
+            <LinearLayout
                 android:id="@+id/addPayerRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="100">
-
+                android:orientation="horizontal">
 
                 <AutoCompleteTextView
                     android:id="@+id/etExpensePayer"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="who dropped dat"
-                    android:inputType="text|textNoSuggestions"
-                    android:layout_weight="60"
-                    />
+                    android:hint="person"
+                    android:inputType="text|textNoSuggestions" />
 
 
                 <EditText
                     android:id="@+id/etUserAmount"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="$$$"
-                    android:numeric="decimal"
-                    android:layout_weight="40"
-                    />
+                    android:layout_marginLeft="50dp"
+                    android:hint="$"
+                    android:numeric="decimal" />
 
-              <CheckBox
-                  android:id="@+id/cbUserUsed"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:gravity="center_vertical"
-                  android:checked="true"/>
-
+                <CheckBox
+                    android:id="@+id/cbUserUsed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:layout_marginLeft="65dp"
+                    android:checked="true"
+                    android:gravity="center_vertical" />
+                <!--android:layout_marginLeft="180dp"-->
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -70,7 +90,8 @@
     <Button
         android:id="@+id/addPayer"
         android:layout_width="wrap_content"
+        android:layout_marginTop="5dp"
         android:layout_height="wrap_content"
-        android:text="add another payer"/>
+        android:text="add another person" />
 
 </LinearLayout>

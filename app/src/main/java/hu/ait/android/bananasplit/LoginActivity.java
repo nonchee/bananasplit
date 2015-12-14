@@ -5,8 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -28,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
     }
     public final String user_name = "USER_NAME";
 
@@ -38,6 +40,9 @@ public class LoginActivity extends AppCompatActivity {
 
     @Bind(R.id.etUserName)
     EditText etUserName;
+
+    @Bind(R.id.banana)
+    ImageView banana;
 
     @Bind(R.id.etPassword)
     EditText etPassword;
@@ -53,9 +58,7 @@ public class LoginActivity extends AppCompatActivity {
     @OnClick(R.id.btnRegister)
     public void register() {
         onRegisterClicked(btnRegister);
-
     }
-
 
     @OnClick(R.id.btnLogin)
     public void login() {

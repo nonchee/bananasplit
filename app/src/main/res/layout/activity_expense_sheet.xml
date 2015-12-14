@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/backgroundblue">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,6 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name This Adventure"
+            android:textColor="#ffffff"
+            android:fontFamily="sans-serif-medium"
             android:textSize="30sp" />
 
         <android.support.design.widget.FloatingActionButton
@@ -23,12 +26,17 @@
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_add"/>
 
-        <Button
+
+        <com.dd.morphingbutton.MorphingButton
             android:id="@+id/btnSeeCurrentUsers"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_group_white"
-            android:layout_gravity="center_horizontal" />
+            android:textColor="#ffffff"
+            android:text="Split"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            android:layout_weight="0.23" />
 
     </LinearLayout>
 
