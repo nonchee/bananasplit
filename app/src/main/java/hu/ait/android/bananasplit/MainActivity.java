@@ -7,16 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.dd.morphingbutton.MorphingButton;
+import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
-import java.io.Serializable;
 import java.util.List;
 
 import butterknife.Bind;
@@ -24,7 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hu.ait.android.bananasplit.adapter.AdventureRecyclerAdapter;
 import hu.ait.android.bananasplit.data.Adventure;
-import hu.ait.android.bananasplit.data.Expense;
+
 
 /**
  * Created by Josh on 12/10/15.
@@ -52,10 +49,27 @@ public class MainActivity extends AppCompatActivity implements AddAdventureFragm
 
         }
         adapter = new AdventureRecyclerAdapter(this);
-        RecyclerView rva = (RecyclerView) findViewById(R.id.rva);
+        final RecyclerView rva = (RecyclerView) findViewById(R.id.rva);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rva.setLayoutManager(linearLayoutManager);
-        rva.setAdapter(adapter);
+
+
+        ParseQuery<Adventure> parseQuery = Adventure.getQuery();
+        parseQuery.findInBackground(new FindCallback<Adventure>() {
+            @Override
+            public void done(List<Adventure> objects, ParseException e) {
+                if (e == null) {
+
+                    for (Adventure adv : objects) {
+                        adapter.addAdventure(adv);
+                    }
+                    rva.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Log.d("MainActivity", "woops: " + e.getMessage());
+                }
+            }
+        });
 
     }
 

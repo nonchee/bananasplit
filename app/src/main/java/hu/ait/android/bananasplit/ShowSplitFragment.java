@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.parse.ParsePush;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -64,6 +66,8 @@ public class ShowSplitFragment extends DialogFragment {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        ParsePush push = new ParsePush();
+
                         dialog.dismiss();
                     }
                 });

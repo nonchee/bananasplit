@@ -92,8 +92,10 @@ public class Expense extends ParseObject {
     }
 
     public void addPayerFromView(String payerNameString, String payerAmount) {
-        payerNames.put(payerNameString, Float.parseFloat(payerAmount));
-        put("payers", payerNames);
+        if (!"".equals(payerAmount)) {
+            payerNames.put(payerNameString, Float.parseFloat(payerAmount));
+            put("payers", payerNames);
+        }
 
     }
 

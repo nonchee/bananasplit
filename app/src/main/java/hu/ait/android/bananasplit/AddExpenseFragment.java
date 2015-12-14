@@ -20,11 +20,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.Toast;
-
-import com.parse.Parse;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.lang.reflect.Array;
@@ -97,12 +92,18 @@ public class AddExpenseFragment extends SupportBlurDialogFragment {
         allBuyers = new HashMap<AutoCompleteTextView, CheckBox>();
         expensePayer = (AutoCompleteTextView) dialogView.findViewById(R.id.etExpensePayer);
         payerAmount = (EditText) dialogView.findViewById(R.id.etUserAmount);
+        AutoCompleteTextView acThisUser = (AutoCompleteTextView) dialogView.findViewById(R.id.secretThisUserEditText);
+        acThisUser.setText(ParseUser.getCurrentUser().getUsername());
+        CheckBox thisUserUsed = (CheckBox) dialogView.findViewById(R.id.cbThisUserUsed);
+
+        allPayers.put(acThisUser, (EditText) dialogView.findViewById(R.id.newExpenseCost));
         allPayers.put(expensePayer, payerAmount);
         allBuyers.put(expensePayer, userUsedThing);
+        allBuyers.put(acThisUser, thisUserUsed);
 
         //this might need to be elsewhere
         //taking this out temporarily because it was crashing the app
-     //   setUpAutoComplete(allPayers);
+        setUpAutoComplete(allPayers);
 
         addPayerRows = (LinearLayout) dialogView.findViewById(R.id.addPayerRows);
 
@@ -129,7 +130,6 @@ public class AddExpenseFragment extends SupportBlurDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-
                         if (!anyFieldsBlank()) {
 
                             //create a new expense
@@ -139,6 +139,7 @@ public class AddExpenseFragment extends SupportBlurDialogFragment {
 
                             //update map of payers
                             for (Map.Entry<AutoCompleteTextView, EditText> name : allPayers.entrySet()) {
+
                                 expense.addPayerFromView(name.getKey().getText().toString(),
                                         name.getValue().getText().toString());
                             }
@@ -165,7 +166,6 @@ public class AddExpenseFragment extends SupportBlurDialogFragment {
 
     //check for when a user doesn't have anything in one of the fields
     private boolean anyFieldsBlank() {
-
         return "".equals(expenseName.getText().toString())
                 || "".equals(expenseCost.getText().toString())
                 || "".equals(expensePayer.getText().toString());

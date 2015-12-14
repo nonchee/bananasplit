@@ -17,9 +17,10 @@
       to match your app's package name + ".permission.C2D_MESSAGE".
     -->
     <permission
-        android:name="hu.ait.android.aitchat.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-    <uses-permission android:name="hu.aut.android.aitchat.permission.C2D_MESSAGE" />
+        android:protectionLevel="signature"
+        android:name="hu.ait.android.bananasplit.permission.C2D_MESSAGE"
+         />
+    <uses-permission android:name="hu.ait.android.bananasplit.permission.C2D_MESSAGE" />
 
 
     <application
@@ -46,6 +47,7 @@
         <activity android:name=".ExpenseSheetActivity" >
         </activity>
 
+        <service android:name="com.parse.PushService" />
 
         <receiver
             android:name="com.parse.ParsePushBroadcastReceiver"
@@ -62,7 +64,7 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-                <category android:name="hu.ait.android.herdtravelapp" />
+                <category android:name="hu.ait.android.bananasplit" />
             </intent-filter>
         </receiver>
 

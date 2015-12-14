@@ -6,15 +6,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.TextureView;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+
+import java.util.Map;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -56,6 +55,11 @@ public class ExpenseSheetActivity extends AppCompatActivity implements AddExpens
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rv.setLayoutManager(linearLayoutManager);
+
+
+        for (Expense expense : thisAdventure.getExpenses()) {
+            adapter.addExpense(expense);
+        }
         rv.setAdapter(adapter);
 
 
@@ -80,6 +84,9 @@ public class ExpenseSheetActivity extends AppCompatActivity implements AddExpens
 
                     //update everyone based on how much they owe
                     thisAdventure.updateConsumersFromStringUsernameList(expense.getConsumerNames(), expense.getCostPerConsumer());
+
+                    //add expense to list in this adventure
+                    thisAdventure.addExpense(expense);
 
                     //add the expense to adapter to be viewed
                     adapter.addExpense(expense);

@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+
 /**
  * Created by Nancy on 12/8/15.
  */
@@ -23,17 +24,21 @@ public class Adventure extends ParseObject implements Serializable {
     String adventureName;
     //names of all the users
     HashMap<String, Float> adventurerNames;
+    ArrayList<Expense> expensesList;
 
     //required blank constructor
     public Adventure() {
+        expensesList = new ArrayList<Expense>();
         adventurerNames = new HashMap<String, Float>();
+        adventurerNames.put(ParseUser.getCurrentUser().getUsername(), 0.0f);
     }
 
     public String getAdventureName() {
-        return adventureName;
+        return getString("name");
     }
 
     public void setAdventureName(String adventureName) {
+        put("name", adventureName);
         this.adventureName = adventureName;
     }
 
@@ -79,5 +84,12 @@ public class Adventure extends ParseObject implements Serializable {
         return adventurerNames;
     }
 
+    public void addExpense(Expense expense) {
+        expensesList.add(expense);
+    }
 
+
+    public ArrayList<Expense> getExpenses() {
+        return expensesList;
+    }
 }

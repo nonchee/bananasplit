@@ -55,6 +55,7 @@
                 android:textColorHint="#f5d158"
                 android:textColor="#f5d158"
                 android:hint="Password"
+                android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>

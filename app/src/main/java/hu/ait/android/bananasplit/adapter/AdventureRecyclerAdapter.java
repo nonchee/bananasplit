@@ -8,7 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,9 +36,7 @@ public class AdventureRecyclerAdapter extends RecyclerView.Adapter<AdventureRecy
         this.context = context;
 
         adventureList = new ArrayList<Adventure>();
-        Adventure.getQuery();
-        /*/Exp.listAll(Todo.class);
-*/
+
     }
 
 
@@ -70,8 +72,8 @@ public class AdventureRecyclerAdapter extends RecyclerView.Adapter<AdventureRecy
     }
 
     public void addAdventure(Adventure adventure) {
-        Toast.makeText(context, "" + adventure.getAdventureName(), Toast.LENGTH_SHORT).show();
         adventureList.add(adventure);
+        adventure.saveInBackground();
         notifyDataSetChanged();
 
     }

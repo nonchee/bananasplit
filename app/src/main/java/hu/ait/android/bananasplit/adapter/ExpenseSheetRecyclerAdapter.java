@@ -62,7 +62,6 @@ public class ExpenseSheetRecyclerAdapter extends RecyclerView.Adapter<ExpenseShe
 
     //add more params in a sec
     public void addExpense(Expense expense) {
-        Toast.makeText(context, "" + expense.getExpenseName(), Toast.LENGTH_SHORT).show();
         expenseList.add(expense);
         notifyDataSetChanged();
 
